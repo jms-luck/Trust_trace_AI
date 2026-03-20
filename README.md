@@ -101,55 +101,60 @@ We validate claims across **three independent realities**:
 
 ---
 ## Architecture
-                    📱 User Device
-        ┌──────────────────────────────────┐
-        │ GPS | Sensors | Network | Device │
-        └──────────────┬──────────────────┘
-                       │
-                       ▼
-        ┌──────────────────────────────────┐
-        │      Data Collection Layer       │
-        │   (API Gateway / FastAPI)        │
-        └──────────────┬──────────────────┘
-                       │
-                       ▼
-        ┌──────────────────────────────────┐
-        │     Data Enrichment Layer        │
-        │ Weather | Traffic | Crowd Data   │
-        └──────────────┬──────────────────┘
-                       │
-                       ▼
-        ┌──────────────────────────────────┐
-        │   Feature Engineering Layer      │
-        │ Behavior | Sensor | Network      │
-        └──────────────┬──────────────────┘
-                       │
-                       ▼
-   ┌────────────────────────────────────────────┐
-   │         🧠 AI Risk Engine                  │
-   │------------------------------------------│
-   │  • Anomaly Detection (LSTM/Isolation)    │
-   │  • Device Integrity Check                │
-   │  • Environmental Validation             │
-   │  • Fraud Cluster Detection (Graph ML)   │
-   └──────────────┬──────────────────────────┘
-                  │
-                  ▼
-        ┌──────────────────────────────────┐
-        │       Risk Scoring Engine        │
-        │   (Low / Medium / High Risk)     │
-        └──────────────┬──────────────────┘
-                       │
-        ┌──────────────┼──────────────┐
-        ▼              ▼              ▼
-   🟢 Instant     🟡 Verification   🔴 Review
-   Payout         (Selfie/Video)   (Manual/AI)
-                       │
-                       ▼
-        ┌──────────────────────────────────┐
-        │      Payment Processing Layer    │
-        │   (Stripe / Razorpay Sandbox)    │
-        └──────────────────────────────────┘
+## 🧩 System Architecture
+
+```text
+                    User Device (Mobile App)
+        +--------------------------------------+
+        | GPS | Sensors | Network | Device Info|
+        +-------------------+------------------+
+                            |
+                            v
+        +--------------------------------------+
+        |       Data Collection Layer          |
+        |        (API Gateway / FastAPI)       |
+        +-------------------+------------------+
+                            |
+                            v
+        +--------------------------------------+
+        |       Data Enrichment Layer          |
+        |   Weather API | Traffic | Crowd Data |
+        +-------------------+------------------+
+                            |
+                            v
+        +--------------------------------------+
+        |     Feature Engineering Layer        |
+        | Behavior | Sensor Fusion | Network   |
+        +-------------------+------------------+
+                            |
+                            v
+   +------------------------------------------------------+
+   |                AI Risk Engine                         |
+   |------------------------------------------------------|
+   | - Anomaly Detection (LSTM / Isolation Forest)         |
+   | - Device Integrity Check                             |
+   | - Environmental Validation                           |
+   | - Fraud Cluster Detection (Graph ML)                 |
+   +-------------------+----------------------------------+
+                       |
+                       v
+        +--------------------------------------+
+        |        Risk Scoring Engine           |
+        |     (Low / Medium / High Risk)       |
+        +-------------------+------------------+
+                            |
+        +-------------------+------------------+
+        |                   |                  |
+        v                   v                  v
+   [Low Risk]        [Medium Risk]       [High Risk]
+   Instant Payout    Verification        Manual Review
+                     (Selfie/Video)      (AI/Analyst)
+                            |
+                            v
+        +--------------------------------------+
+        |     Payment Processing Layer         |
+        |   (Stripe / Razorpay - Sandbox)      |
+        +--------------------------------------+
 
 ## ⚙️ Technical Requirements & Features
 
