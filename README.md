@@ -155,7 +155,7 @@ We validate claims across **three independent realities**:
         |     Payment Processing Layer         |
         |   (Stripe / Razorpay - Sandbox)      |
         +--------------------------------------+
-
+```
 ## ⚙️ Technical Requirements & Features
 
 ### 🧠 AI-Powered Risk Assessment
