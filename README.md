@@ -100,6 +100,56 @@ We validate claims across **three independent realities**:
   Handles payout, verification, or review  
 
 ---
+## Architecture
+                    📱 User Device
+        ┌──────────────────────────────────┐
+        │ GPS | Sensors | Network | Device │
+        └──────────────┬──────────────────┘
+                       │
+                       ▼
+        ┌──────────────────────────────────┐
+        │      Data Collection Layer       │
+        │   (API Gateway / FastAPI)        │
+        └──────────────┬──────────────────┘
+                       │
+                       ▼
+        ┌──────────────────────────────────┐
+        │     Data Enrichment Layer        │
+        │ Weather | Traffic | Crowd Data   │
+        └──────────────┬──────────────────┘
+                       │
+                       ▼
+        ┌──────────────────────────────────┐
+        │   Feature Engineering Layer      │
+        │ Behavior | Sensor | Network      │
+        └──────────────┬──────────────────┘
+                       │
+                       ▼
+   ┌────────────────────────────────────────────┐
+   │         🧠 AI Risk Engine                  │
+   │------------------------------------------│
+   │  • Anomaly Detection (LSTM/Isolation)    │
+   │  • Device Integrity Check                │
+   │  • Environmental Validation             │
+   │  • Fraud Cluster Detection (Graph ML)   │
+   └──────────────┬──────────────────────────┘
+                  │
+                  ▼
+        ┌──────────────────────────────────┐
+        │       Risk Scoring Engine        │
+        │   (Low / Medium / High Risk)     │
+        └──────────────┬──────────────────┘
+                       │
+        ┌──────────────┼──────────────┐
+        ▼              ▼              ▼
+   🟢 Instant     🟡 Verification   🔴 Review
+   Payout         (Selfie/Video)   (Manual/AI)
+                       │
+                       ▼
+        ┌──────────────────────────────────┐
+        │      Payment Processing Layer    │
+        │   (Stripe / Razorpay Sandbox)    │
+        └──────────────────────────────────┘
 
 ## ⚙️ Technical Requirements & Features
 
